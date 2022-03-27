@@ -95,6 +95,15 @@ void adjustPrio(LL *head, int prio){
             current_node->prioNum = currentPrioNum-1;
         }
     }
+    else if(prio == maxCap)
+    {
+        for(current_node = *head; current_node != NULL; current_node = current_node->next)
+        {
+            int currentPrioNum = current_node->prioNum;
+            if(currentPrioNum == maxCap)
+                current_node->prioNum = currentPrioNum-1;
+        }
+    }
 }
 
 void sortList(LL *head){
