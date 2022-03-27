@@ -76,7 +76,7 @@ void deQueue(LL *head, LL *tail, int prio){
 void adjustPrio(LL *head, int prio){
 
     NODE *current_node = malloc(sizeof(NODE));
-    if(prio < maxCap)
+    if(prio < maxCap) // If the priority number is less than the max capacity, all priority numbers after it will be incremented.
     {
         for(current_node = *head; current_node != NULL; current_node = current_node->next)
         {
@@ -85,8 +85,8 @@ void adjustPrio(LL *head, int prio){
                 current_node->prioNum = currentPrioNum+1;
         }
     }
-    else if(prio == maxCap && nodeCount >= maxCap)
-    {
+    else if(prio == maxCap && nodeCount >= maxCap) // If the priority number is equal to the max capacity and there are 
+    {                                              // already 5 records, all priority numbers before it will be decremented.
         for(current_node = *head; current_node != NULL; current_node = current_node->next)
         {
             int currentPrioNum = current_node->prioNum;
@@ -98,7 +98,7 @@ void adjustPrio(LL *head, int prio){
 void sortList(LL *head){
 
     int i, j, swapped;
-    for(i = 0; i < nodeCount - 1; i++)
+    for(i = 0; i < nodeCount - 1; i++) // Program uses a basic bubble sort to sort the nodes.
     {
         swapped = 0;
         char strTemp[30];
