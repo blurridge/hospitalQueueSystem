@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "hospHeader.h"
 
 int maxCap = 5, nodeCount = 0;
@@ -47,6 +48,7 @@ void enQueue(NODE *new_node, LL *head, LL *tail){
         trav->next = new_node;
         *tail = new_node;
     }
+    printf("SUCCESS : New prescription enqueued!\n");
     nodeCount++;
 }
 
@@ -81,7 +83,7 @@ void adjustPrio(LL *head, int prio){
         for(current_node = *head; current_node != NULL; current_node = current_node->next)
         {
             int currentPrioNum = current_node->prioNum;
-            if(currentPrioNum >= prio)
+            if((currentPrioNum == prio) || (currentPrioNum >= prio && nodeCount >= maxCap))
                 current_node->prioNum = currentPrioNum+1;
         }
     }
@@ -140,9 +142,37 @@ void sortList(LL *head){
 
 void showList(LL head){
 
-    NODE *trav = malloc(sizeof(NODE));
-    printf("%d prescriptions available\n", nodeCount);
-    for(trav = head; trav != NULL; trav = trav->next)
-        printf("%-30s\t%d\t%-25s\t%d\t%d\n", trav->name, trav->age, trav->medName, trav->doseAmt, trav->prioNum);
-    printf("\n");
+    if(head == NULL)
+        printf("ERROR : No prescriptions available!\n");
+    else
+    {
+        NODE *trav = malloc(sizeof(NODE));
+        printf("%d prescriptions available\n", nodeCount);
+        for(trav = head; trav != NULL; trav = trav->next)
+            printf("%-30s\t%d\t%-25s\t%d\t%d\n", trav->name, trav->age, trav->medName, trav->doseAmt, trav->prioNum);
+        printf("\n");
+    }
+}
+
+void clearScr(){
+
+    printf("\e[1;1H\e[2J");
+}
+
+void delay(int seconds){
+
+    int milli_seconds = 1000 * seconds;
+    clock_t start_time = clock();
+    while (clock() < start_time + milli_seconds);
+}
+
+void pause(){
+
+    #ifdef _WIN32
+        delay(2);
+    #elif __APPLE__
+        delay(2000);
+    #elif __unix__
+        delay(2000);
+    #endif
 }
