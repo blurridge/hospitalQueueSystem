@@ -24,5 +24,8 @@ void deQueue(LL *head, LL *tail, int prio);
 void adjustPrio(LL *head, int prio);
 void sortList(LL *head);
 void showList(LL head);
+void clearScr();
+void delay(int seconds);
+void pause();
 
 #endif
