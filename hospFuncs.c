@@ -147,7 +147,13 @@ void showList(LL head){
     else
     {
         NODE *trav = malloc(sizeof(NODE));
+        char nameLabel[] = "NAME";
+        char ageLabel[] = "AGE";
+        char medLabel[] = "MEDICINE";
+        char doseLabel[] = "DOSAGE";
+        char prioLabel[] = "PRIORITY";
         printf("%d prescriptions available\n", nodeCount);
+        printf("%-30s\t%-4s\t%-25s\t%-6s\t%s\n", nameLabel, ageLabel, medLabel, doseLabel, prioLabel);
         for(trav = head; trav != NULL; trav = trav->next)
             printf("%-30s\t%d\t%-25s\t%d\t%d\n", trav->name, trav->age, trav->medName, trav->doseAmt, trav->prioNum);
         printf("\n");
